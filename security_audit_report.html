@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Security Audit Report - CodeAlpha</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 15px; }
+        .summary-box { background: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 30px; display: flex; gap: 20px; justify-content: space-around; }
+        .sum-item { text-align: center; }
+        .sum-num { font-size: 2rem; font-weight: bold; color: #38bdf8; }
+        .card { background: #1e293b; border-left: 6px solid #94a3b8; border-radius: 8px; margin-bottom: 20px; padding: 20px; }
+        .sev-critical { border-left-color: #ef4444; }
+        .sev-high { border-left-color: #f97316; }
+        .sev-medium { border-left-color: #eab308; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; float: right; color: white; }
+        .badge.sev-critical { background: #ef4444; }
+        .badge.sev-high { background: #f97316; }
+        .badge.sev-medium { background: #eab308; }
+        .snippet { background: #090d16; padding: 12px; border-radius: 6px; font-family: monospace; margin: 10px 0; color: #38bdf8; }
+        .remediation { background: rgba(56, 189, 248, 0.1); padding: 12px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.3); margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Static Code Security Audit Report</h1>
+        <p>Generated on: 2026-07-26 14:50:20 | CodeAlpha Cybersecurity Task 3</p>
+
+        <div class="summary-box">
+            <div class="sum-item"><div class="sum-num">4</div>Files Scanned</div>
+            <div class="sum-item"><div class="sum-num">2</div>Total Issues</div>
+        </div>
+
+        <h2>Audit Findings</h2>
+        
+            <div class="card sev-medium">
+                <div class="card-header">
+                    <span class="badge sev-medium">MEDIUM</span>
+                    <h3>[SEC-005] Weak Cryptographic Hash Function</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Location:</strong> <code>sample_vulnerable_app.py:12</code></p>
+                    <p><strong>Category:</strong> CWE-327: Use of a Broken Cryptographic Algorithm</p>
+                    <div class="snippet"><code>hashed_pass = hashlib.md5(user_input_pass.encode()).hexdigest()</code></div>
+                    <p><strong>Description:</strong> MD5 and SHA-1 algorithms are cryptographically broken and vulnerable to collision attacks.</p>
+                    <div class="remediation"><strong>Recommendation:</strong> Upgrade to secure hashing algorithms such as SHA-256 (hashlib.sha256()) or argon2 / bcrypt for passwords.</div>
+                </div>
+            </div>
+            
+            <div class="card sev-critical">
+                <div class="card-header">
+                    <span class="badge sev-critical">CRITICAL</span>
+                    <h3>[SEC-003] Dangerous Code Execution / Insecure Deserialization</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Location:</strong> <code>secure_code_reviewer.py:56</code></p>
+                    <p><strong>Category:</strong> CWE-95 / CWE-502: Insecure Deserialization & Code Injection</p>
+                    <div class="snippet"><code>"description": "Functions like eval(), exec(), and pickle.loads() execute arbitrary bytecode and allow Remote Code Execu</code></div>
+                    <p><strong>Description:</strong> Functions like eval(), exec(), and pickle.loads() execute arbitrary bytecode and allow Remote Code Execution (RCE).</p>
+                    <div class="remediation"><strong>Recommendation:</strong> Avoid eval/exec completely. Use safer parsing mechanisms such as ast.literal_eval() for Python data structures or json.loads().</div>
+                </div>
+            </div>
+            
+    </div>
+</body>
+</html>
